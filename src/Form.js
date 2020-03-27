@@ -91,10 +91,11 @@ const Form = () =>
     <div>
       <h3>Place an Order $>></h3>
       <RSForm>
-        <label htmlFor="name">Name:
+        <label htmlFor="name" >Name:
     <input
             type="text"
             name="name"
+            placeholder="name"
             value={formState.name}
             onChange={inputChange}
           />
@@ -124,6 +125,8 @@ const Form = () =>
         <br/>
         <button type='submit' disabled={buttonDisabled}>Add To Order</button>
       </RSForm>
+      <p>Orders:</p>
+      <pre>{JSON.stringify(orders, null, 2)}</pre>
     </div>
   );
 };

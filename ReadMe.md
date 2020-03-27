@@ -65,11 +65,11 @@ You may use the following wireframe (also in a folder above) as guidance as you 
 
 If you complete the MVP, move on to the following stretch goals. As usual, these goals represent a mix of additional at-level work in addition to work that is beyond the scope of what you've learned, but attainable with your current knowledge (and google).
 
-- [ ] Toggle form component for gluten free crust
+- [ ] Toggle form componion ent for gluten free crust
 - [ ] Turn your form into a modal that pops up on the home page
 - [ ] Turn form element sections into nested routes
 - [ ] Create a `cart` page with additional form options like: delivery or pickup, the option to add utensils and straws, add a tip, etc.
-- [ ] Test more of the application with Cypress
+- [ ] Test more of the applicatwith Cypress
 - [ ] Add functionality to your order button that it leads to a Congrats! Pizza is on it's way! page **and** returns a database record of the whole order
 
 **"Pizza is on its Way" Wireframe:**

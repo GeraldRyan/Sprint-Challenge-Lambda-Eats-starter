@@ -143,15 +143,13 @@ const Form = () =>
 
         <fieldset>
           <legend>Toppings</legend>
-
           <p>Choose additional toppings, $0.50 each.</p>
-
           <p>
-            <label><input type="checkbox" name="toppings" value="extra cheese" onChange={inputChange}/> Extra Cheese</label>
-            <label><input type="checkbox" name="toppings" value="Pineapple" onChange={inputChange}/> Pineapple</label>
-            <label><input type="checkbox" name="toppings" value="Salami" onChange={inputChange}/> Salami</label>
-            <label><input type="checkbox" name="toppings" value="Sardines" onChange={inputChange}/> Sardines</label>
-            <label><input type="checkbox" name="toppings" value="Surprise me" onChange={inputChange}/> Surprise me</label>
+            <label><input id="cheese" type="checkbox" name="toppings" value="extra cheese" onChange={inputChange}/> Extra Cheese</label>
+            <label><input id="pineapple" type="checkbox" name="toppings" value="Pineapple" onChange={inputChange}/> Pineapple</label>
+            <label><input id="salami" type="checkbox" name="toppings" value="Salami" onChange={inputChange}/> Salami</label>
+            <label><input id="sardines" type="checkbox" name="toppings" value="Sardines" onChange={inputChange}/> Sardines</label>
+            <label><input id="surprise" type="checkbox" name="toppings" value="Surprise me" onChange={inputChange}/> Surprise me</label>
           </p>
           {/* <p>
             <label><input type="checkbox" name="cheese" value="extra cheese" onChange={inputChange}/> Extra Cheese</label>

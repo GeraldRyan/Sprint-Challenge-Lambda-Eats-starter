@@ -9,7 +9,7 @@ import { useEffect } from "react";
 const formSchema = yup.object().shape({
   name: yup.string().required("Please enter your name").min(2),
   size: yup.string(),
-  toppings: yup.string(),
+  toppings: yup.array(),
   specialInstructions: yup.string()
 })
 
@@ -95,10 +95,10 @@ const Form = () =>
   const inputChange = e =>
   {
     e.persist()
-    let arrvals = []
     if (e.target.type === 'checkbox'){
+      if (e.target.checked){
       setTheToppings(theToppings => [...theToppings, e.target.value])
-      
+      }
 
     }
     const newFormData = {
@@ -164,21 +164,6 @@ const Form = () =>
           </p> */}
 
         </fieldset>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         <br />

@@ -9,7 +9,7 @@ import { useEffect } from "react";
 const formSchema = yup.object().shape({
   name: yup.string().required("Please enter your name").min(2),
   size: yup.string(),
-  toppings: yup.array(),
+  toppings: yup.string(),
   specialInstructions: yup.string()
 })
 
@@ -20,18 +20,20 @@ const Form = () =>
 {
   const [orders, setOrders] = useState([])
   const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [theToppings, setTheToppings] = useState([])
+
 
   const [formState, setFormState] = useState({
     name: '',
     size: '',
-    toppings:[],
+    toppings:'',
     specialInstructions: ''
   })
 
   const [errors, setErrors] = useState({
     name: '',
     size: '',
-    toppings:[],
+    toppings:'',
     specialInstructions: ''
   })
 
@@ -61,8 +63,8 @@ const Form = () =>
         setFormState({
           name: '',
           size: '',
-          cheese:'',
-          specialInstructions: ''
+          specialInstructions: '',
+          toppings:''
         })
         setOrders(orders => [...orders, res.data]) // change name
         console.log("post:", post)
@@ -95,12 +97,14 @@ const Form = () =>
     e.persist()
     let arrvals = []
     if (e.target.type === 'checkbox'){
-      arrvals.push(e.target.value)
+      setTheToppings(theToppings => [...theToppings, e.target.value])
+      
+
     }
     const newFormData = {
       ...formState,
       [e.target.name]:
-        e.target.type === "checkbox" ? arrvals : e.target.value
+        e.target.type === "checkbox" ? theToppings : e.target.value
     }
     validateChange(e);
     setFormState(newFormData)

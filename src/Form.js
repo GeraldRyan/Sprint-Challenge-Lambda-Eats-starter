@@ -9,6 +9,7 @@ import { useEffect } from "react";
 const formSchema = yup.object().shape({
   name: yup.string().required("Please enter your name").min(2),
   size: yup.string(),
+  toppings: yup.array(),
   specialInstructions: yup.string()
 })
 
@@ -23,12 +24,14 @@ const Form = () =>
   const [formState, setFormState] = useState({
     name: '',
     size: '',
+    toppings:[],
     specialInstructions: ''
   })
 
   const [errors, setErrors] = useState({
     name: '',
     size: '',
+    toppings:[],
     specialInstructions: ''
   })
 
@@ -58,6 +61,7 @@ const Form = () =>
         setFormState({
           name: '',
           size: '',
+          cheese:'',
           specialInstructions: ''
         })
         setOrders(orders => [...orders, res.data]) // change name
@@ -89,10 +93,14 @@ const Form = () =>
   const inputChange = e =>
   {
     e.persist()
+    let arrvals = []
+    if (e.target.type === 'checkbox'){
+      arrvals.push(e.target.value)
+    }
     const newFormData = {
       ...formState,
       [e.target.name]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value
+        e.target.type === "checkbox" ? arrvals : e.target.value
     }
     validateChange(e);
     setFormState(newFormData)
@@ -115,6 +123,7 @@ const Form = () =>
           {errors.name.length > 0 ? <p className="error"> {errors.name}</p> : null}
         </label>
         <br />
+        <br />
         <label htmlFor="size">
           Size:
           <select
@@ -129,7 +138,7 @@ const Form = () =>
           </select>
         </label>
         <br />
-
+        <br />
 
 
         <fieldset>
@@ -138,12 +147,19 @@ const Form = () =>
           <p>Choose additional toppings, $0.50 each.</p>
 
           <p>
-            <label><input type="checkbox" name="toppings[]" value="extra cheese" /> Extra Cheese</label>
-            <label><input type="checkbox" name="toppings[]" value="Pineapple" /> Pineapple</label>
-            <label><input type="checkbox" name="toppings[]" value="Salami" /> Salami</label>
-            <label><input type="checkbox" name="toppings[]" value="Sardines" /> Sardines</label>
-            <label><input type="checkbox" name="toppings[]" value="Surprise me" /> Surprise me</label>
+            <label><input type="checkbox" name="toppings" value="extra cheese" onChange={inputChange}/> Extra Cheese</label>
+            <label><input type="checkbox" name="toppings" value="Pineapple" onChange={inputChange}/> Pineapple</label>
+            <label><input type="checkbox" name="toppings" value="Salami" onChange={inputChange}/> Salami</label>
+            <label><input type="checkbox" name="toppings" value="Sardines" onChange={inputChange}/> Sardines</label>
+            <label><input type="checkbox" name="toppings" value="Surprise me" onChange={inputChange}/> Surprise me</label>
           </p>
+          {/* <p>
+            <label><input type="checkbox" name="cheese" value="extra cheese" onChange={inputChange}/> Extra Cheese</label>
+            <label><input type="checkbox" name="pineapple" value="Pineapple" onChange={inputChange} /> Pineapple</label>
+            <label><input type="checkbox" name="salami" value="Salami" onChange={inputChange}/> Salami</label>
+            <label><input type="checkbox" name="sardines" value="Sardines" onChange={inputChange}/> Sardines</label>
+            <label><input type="checkbox" name="surprise" value="Surprise me" onChange={inputChange}/> Surprise me</label>
+          </p> */}
 
         </fieldset>
 
@@ -163,8 +179,8 @@ const Form = () =>
 
 
 
-
-        <label htmlFor="specialInstructions">specialInstructions:
+        <br />
+        <label htmlFor="specialInstructions">special Instructions:
     <input
             type="text"
             name="specialInstructions"
@@ -172,6 +188,7 @@ const Form = () =>
             onChange={inputChange}
           />
         </label>
+        <br />
         <br />
         <button type='submit' disabled={buttonDisabled}>Add To Order</button>
       </RSForm>

@@ -6,7 +6,7 @@ import * as yup from 'yup'
 
 
 const formSchema = yup.object().shape({
-  name: yup.string().required("Please enter your name"),
+  name: yup.string().required("Please enter your name").min(2),
   specialInstructions: yup.string()
 })
 
@@ -98,6 +98,7 @@ const Form = () =>
             value={formState.name}
             onChange={inputChange}
           />
+          {errors.name.length > 0 ? <p className="error"> {errors.name}</p> : null}
         </label>
         <br/>
         <label htmlFor="size">

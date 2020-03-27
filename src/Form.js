@@ -3,6 +3,7 @@ import './Form.css'
 import { Button, Form as RSForm, FormGroup, Label, Input, FormText } from 'reactstrap';
 import axios from 'axios'
 import * as yup from 'yup'
+import { useEffect } from "react";
 
 
 const formSchema = yup.object().shape({
@@ -16,7 +17,7 @@ const formSchema = yup.object().shape({
 const Form = () =>
 {
   const [orders, setOrders] = useState([])
-  const [post, setPost] = useState ([])
+  const [buttonDisabled, setButtonDisabled] = useState(true)
 
   const [formState, setFormState] = useState({
     name: '',
@@ -24,15 +25,44 @@ const Form = () =>
     specialInstructions: ''
   })
 
-
-  const [buttonDisabled, setButtonDisabled] = useState(true)
-
   const [errors, setErrors] = useState({
     name: '',
     size:'',
     specialInstructions: ''
   })
 
+  const [post, setPost] = useState ([])
+
+
+
+
+useEffect(() =>
+{
+  formSchema.isValid(formState).then(valid =>
+    {
+      setButtonDisabled(!valid)
+    })
+})
+
+const formSubmit = e =>
+{
+  console.log("Form submitting via Axios.post() and then reset form state")
+  e.preventDefault()
+  axios
+  .post("https://reqres.in/api/users", formState)
+  .then(res =>
+    {
+      setPost(res.data)
+      console.log("success", post)
+      setFormState({
+        name:'',
+        size:'',
+        specialInstructions:''
+      })
+      setOrders(orders =>[...orders,res.data]) // change name
+      console.log("post:", post)
+    })
+}
 
   const validateChange = e =>
   {
@@ -67,30 +97,12 @@ const Form = () =>
     setFormState(newFormData)
   }
 
-  const formSubmit = e =>
-  {
-    console.log("Form submitting via Axios.post() and then reset form state")
-    e.preventDefault()
-    axios
-    .post("https://reqres.in/api/users", formState)
-    .then(res =>
-      {
-        setPost(res.data)
-        console.log("success", post)
-        setFormState({
-          name:'',
-          size:'',
-          specialInstructions:''
-        })
-        setOrders(orders =>[...orders,res.data]) // change name
-        console.log("post:", post)
-      })
-  }
+
 
   return (
     <div>
       <h3>Place an Order $>></h3>
-      <RSForm>
+      <RSForm onSubmit={formSubmit}>
         <label htmlFor="name" >Name:
     <input
             type="text"

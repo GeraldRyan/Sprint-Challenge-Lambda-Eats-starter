@@ -11,12 +11,15 @@ const App = () =>
         <Link to="/">
           <li>Home</li>
         </Link>
-        <Link to='/order'>
-          <li>Order</li>
+        <Link to='/pizza'>
+          <li>Order Pizza</li>
         </Link>
       </nav>
       <h1>Lambda Eats</h1>
       <Route exact path='/order/'>
+        <Form></Form>
+      </Route>
+      <Route exact path='/pizza/'>
         <Form></Form>
       </Route>
     </div>

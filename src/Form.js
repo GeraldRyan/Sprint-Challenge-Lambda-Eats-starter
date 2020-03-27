@@ -10,14 +10,17 @@ const formSchema = yup.object().shape({
   specialInstructions: yup.string()
 })
 
-
+// set orders to be populated from returned success response to be displayed
 
 
 const Form = () =>
 {
-
+  const [orders, setOrders] = useState([])
+  const [post, setPost] = useState ([])
+  
   const [formState, setFormState] = useState({
     name: '',
+    size: '',
     specialInstructions: ''
   })
 
@@ -26,6 +29,7 @@ const Form = () =>
 
   const [errors, setErrors] = useState({
     name: '',
+    size:'',
     specialInstructions: ''
   })
 
@@ -63,6 +67,26 @@ const Form = () =>
     setFormState(newFormData)
   }
 
+  const formSubmit = e =>
+  {
+    console.log("Form submitting via Axios.post() and then reset form state")
+    e.preventDefault()
+    axios
+    .post("https://reqres.in/api/users", formState)
+    .then(res =>
+      {
+        setPost(res.data)
+        console.log("success", post)
+        setFormState({
+          name:'',
+          size:'',
+          specialInstructions:''
+        })
+        setOrders(orders =>[...orders,res.data]) // change name
+        console.log("post:", post)
+      })
+  }
+
   return (
     <div>
       <h3>This will be my form</h3>
@@ -77,7 +101,7 @@ const Form = () =>
         </label>
         <br />
         <br/>
-        <button type='submit' disabled={buttonDisabled}>Submit</button>
+        <button type='submit' disabled={buttonDisabled}>Add To Order</button>
       </RSForm>
     </div>
   );

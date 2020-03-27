@@ -113,6 +113,14 @@ const Form = () =>
             </select>
             </label>
         <br />
+        <label htmlFor="specialInstructions">specialInstructions:
+    <input
+            type="text"
+            name="specialInstructions"
+            value={formState.specialInstructions}
+            onChange={inputChange}
+          />
+        </label>
         <br/>
         <button type='submit' disabled={buttonDisabled}>Add To Order</button>
       </RSForm>

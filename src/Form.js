@@ -28,42 +28,42 @@ const Form = () =>
 
   const [errors, setErrors] = useState({
     name: '',
-    size:'',
+    size: '',
     specialInstructions: ''
   })
 
-  const [post, setPost] = useState ([])
+  const [post, setPost] = useState([])
 
 
 
 
-useEffect(() =>
-{
-  formSchema.isValid(formState).then(valid =>
+  useEffect(() =>
+  {
+    formSchema.isValid(formState).then(valid =>
     {
       setButtonDisabled(!valid)
     })
-})
+  })
 
-const formSubmit = e =>
-{
-  console.log("Form submitting via Axios.post() and then reset form state")
-  e.preventDefault()
-  axios
-  .post("https://reqres.in/api/users", formState)
-  .then(res =>
-    {
-      setPost(res.data)
-      console.log("success", post)
-      setFormState({
-        name:'',
-        size:'',
-        specialInstructions:''
+  const formSubmit = e =>
+  {
+    console.log("Form submitting via Axios.post() and then reset form state")
+    e.preventDefault()
+    axios
+      .post("https://reqres.in/api/users", formState)
+      .then(res =>
+      {
+        setPost(res.data)
+        console.log("success", post)
+        setFormState({
+          name: '',
+          size: '',
+          specialInstructions: ''
+        })
+        setOrders(orders => [...orders, res.data]) // change name
+        console.log("post:", post)
       })
-      setOrders(orders =>[...orders,res.data]) // change name
-      console.log("post:", post)
-    })
-}
+  }
 
   const validateChange = e =>
   {
@@ -114,21 +114,56 @@ const formSubmit = e =>
           />
           {errors.name.length > 0 ? <p className="error"> {errors.name}</p> : null}
         </label>
-        <br/>
+        <br />
         <label htmlFor="size">
           Size:
-          <select 
-          name="size" 
-          id="size"
-          onChange={inputChange}>
+          <select
+            name="size"
+            id="size"
+            onChange={inputChange}>
             <option value="xxx">Select Size</option>
             <option value="dwarf">dwarf</option>
             <option value="human">human</option>
             <option value="bear">bear</option>
             <option value="Titan">Titan</option>
-            </select>
-            </label>
+          </select>
+        </label>
         <br />
+
+
+
+        <fieldset>
+          <legend>Toppings</legend>
+
+          <p>Choose additional toppings, $0.50 each.</p>
+
+          <p>
+            <label><input type="checkbox" name="toppings[]" value="extra cheese" /> Extra Cheese</label>
+            <label><input type="checkbox" name="toppings[]" value="Pineapple" /> Pineapple</label>
+            <label><input type="checkbox" name="toppings[]" value="Salami" /> Salami</label>
+            <label><input type="checkbox" name="toppings[]" value="Sardines" /> Sardines</label>
+            <label><input type="checkbox" name="toppings[]" value="Surprise me" /> Surprise me</label>
+          </p>
+
+        </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <label htmlFor="specialInstructions">specialInstructions:
     <input
             type="text"
@@ -137,7 +172,7 @@ const formSubmit = e =>
             onChange={inputChange}
           />
         </label>
-        <br/>
+        <br />
         <button type='submit' disabled={buttonDisabled}>Add To Order</button>
       </RSForm>
       <p>Orders:</p>

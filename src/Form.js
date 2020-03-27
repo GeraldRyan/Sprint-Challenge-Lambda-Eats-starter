@@ -17,7 +17,7 @@ const Form = () =>
 {
   const [orders, setOrders] = useState([])
   const [post, setPost] = useState ([])
-  
+
   const [formState, setFormState] = useState({
     name: '',
     size: '',
@@ -89,7 +89,7 @@ const Form = () =>
 
   return (
     <div>
-      <h3>This will be my form</h3>
+      <h3>Place an Order $>></h3>
       <RSForm>
         <label htmlFor="name">Name:
     <input
@@ -99,6 +99,18 @@ const Form = () =>
             onChange={inputChange}
           />
         </label>
+        <br/>
+        <label htmlFor="size">
+          Size:
+          <select 
+          name="size" 
+          id="size">
+            <option value="small">Small</option>
+            <option value="medium">medium</option>
+            <option value="large">large</option>
+            <option value="Titan">Titan</option>
+            </select>
+            </label>
         <br />
         <br/>
         <button type='submit' disabled={buttonDisabled}>Add To Order</button>

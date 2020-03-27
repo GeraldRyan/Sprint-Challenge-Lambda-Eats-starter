@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 const formSchema = yup.object().shape({
   name: yup.string().required("Please enter your name").min(2),
+  size: yup.string(),
   specialInstructions: yup.string()
 })
 
@@ -118,10 +119,12 @@ const formSubmit = e =>
           Size:
           <select 
           name="size" 
-          id="size">
-            <option value="small">Small</option>
-            <option value="medium">medium</option>
-            <option value="large">large</option>
+          id="size"
+          onChange={inputChange}>
+            <option value="xxx">Select Size</option>
+            <option value="dwarf">dwarf</option>
+            <option value="human">human</option>
+            <option value="bear">bear</option>
             <option value="Titan">Titan</option>
             </select>
             </label>

@@ -1,10 +1,12 @@
 import React from "react";
+import './Form.css'
 
-const App = () => {
+const Form = () =>
+{
   return (
-    <>
-      <h1>Lambda Eats</h1>
-    </>
+    <div>
+    <h3>This will be my form</h3>
+    </div>
   );
 };
-export default App;
+export default Form;
